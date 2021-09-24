@@ -1,7 +1,7 @@
 import argparse
 
 
-def make_list(dictionary):  # this is will generate a list of strings corresponding to individual values in a dictionary
+def make_list(dictionary):  # this will generate a list of strings corresponding to individual values in a dictionary
     dict_list = []
     for k, v in dictionary.items():
         for x in v:
@@ -44,7 +44,7 @@ def parser_module(file):
 
 def symbol_table(a_instructions, goto_instructions):
     print('Preparing a-instructions...')
-    # the dictionary below contains initially only reserved symbols. New symbols will be added to it
+    # the dictionary below initially contains only reserved symbols. New symbols will be added to it
     symbol_address = {0: ['R0', '0', 'SP'], 1: ['R1', '1', 'LCL'], 2: ['R2', '2', 'ARG'], 3: ['R3', '3', 'THIS'], 4: ['R4', '4', 'THAT'], 5: ['R5', '5'], 6: ['R6', '6'], 7: ['R7', '7'], 8: ['R8', '8'], 9: ['R9', '9'], 10: ['R10', '10'], 11: ['R11', '11'], 12: ['R12', '12'], 13: ['R13', '13'], 14: ['R14', '14'], 15: ['R15', '15'], 16384: ['16384', 'SCREEN'], 24576: ['24576', 'KBD']}
     all_values = make_list(symbol_address)  # This is to keep track of values that are already in the symbol_address dictionary
     all_goto = make_list(goto_instructions)  # This is to keep track of existing goto instructions
@@ -185,7 +185,7 @@ def main(file):
 
 
 # This handles the command line input
-parser = argparse.ArgumentParser(description='This program will convert a valid asm file into a hack file. Usage: >assembler.py INPUT')
+parser = argparse.ArgumentParser(description='This program will convert a valid asm file into a hack file')
 parser.add_argument('file', help='Input file in asm format')
 args = parser.parse_args()
 
