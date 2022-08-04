@@ -2,3 +2,18 @@
 *.tst
 *.out
 *.DS_Store
+
+# git stuff #
+######################
+.gitattributes
+.gitignore
+   
+# IntelliJ stuff  #
+######################
+.classpath
+.project
+.settings
+.idea
+.metadata
+*.iml
+*.ipr
