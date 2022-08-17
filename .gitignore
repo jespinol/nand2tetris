@@ -91,3 +91,5 @@ fabric.properties
 07 - Virtual Machine I/VM Translator/.idea/description.html
 07 - Virtual Machine I/VM Translator/.idea/encodings.xml
 *.xml
+*.html
+*.iml
