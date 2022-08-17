@@ -1,3 +1,9 @@
+@256
+D=A
+@R0
+M=D
+@Sys.init
+0;JMP
 // function SimpleFunction.test 2
 (SimpleFunction.test)
 @0
