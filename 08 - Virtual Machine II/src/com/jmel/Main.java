@@ -7,6 +7,7 @@ import com.jmel.stackarithmetic.Pop;
 import com.jmel.stackarithmetic.Push;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -14,27 +15,36 @@ public class Main {
         Scanner arguments = new Scanner(System.in);
 
         System.out.print("Enter path to a vm file or directory: ");
-        String inputString = arguments.nextLine();
+        String inputFileOrDirectory = arguments.nextLine();
 
 
         BufferedReader reader = null;
         FileWriter writer = null;
 
         try {
-            boolean directoryProvided = !inputString.endsWith(".vm");
+            // set to false if the user provides an input that ends in vm, i.e. a file is provided as input
+            boolean directoryProvided = !inputFileOrDirectory.endsWith(".vm");
 
-            File directory = new File(directoryProvided ? inputString : inputString.substring(0, inputString.lastIndexOf("/")));
+            File directory = new File(directoryProvided ? inputFileOrDirectory : inputFileOrDirectory.substring(0, inputFileOrDirectory.lastIndexOf("/")));
             File[] directoryFiles = directory.listFiles();
 
             // stores the parent directory name to be used as the output file name
             String path = directory.getAbsolutePath();
-            String outputFileName = directoryProvided ? path.substring(path.lastIndexOf("/") + 1) : inputString.substring(inputString.lastIndexOf("/") + 1, inputString.lastIndexOf("."));
+            String outputFileName = directoryProvided ? path.substring(path.lastIndexOf("/") + 1) : inputFileOrDirectory.substring(inputFileOrDirectory.lastIndexOf("/") + 1, inputFileOrDirectory.lastIndexOf("."));
 
             // creates an output file with asm extension, file is saved in the input directory
             writer = new FileWriter(path + "/" + outputFileName + ".asm");
 
+            // if the inputFileOrDirectory is a directory, execute this
             if (directoryProvided && directoryFiles != null) {
-                writer.write(bootstrapCodeAssembly());
+                // checks if directory contains Sys.vm
+                // if not, bootstrap code is not added to the asm file
+                if (Arrays.toString(directoryFiles).contains("Sys.vm")) {
+                    writer.write(bootstrapCodeAssembly());
+                }
+
+                // loops through each file in the directory
+                // if a vm file is found it is translated to assembly
                 for (File file : directoryFiles) {
                     if (file.isFile() && file.getName().endsWith(".vm")) {
                         reader = new BufferedReader(new FileReader(file));
@@ -42,8 +52,9 @@ public class Main {
                     }
 
                 }
+            // if inputFileOrDirectory is instead a file, execute this
             } else {
-                reader = new BufferedReader(new FileReader(inputString));
+                reader = new BufferedReader(new FileReader(inputFileOrDirectory));
                 processFile(reader, writer, outputFileName);
             }
         } catch (IOException | NoSuchFieldException e) {
