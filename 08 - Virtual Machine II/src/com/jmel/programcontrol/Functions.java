@@ -1,5 +1,6 @@
 package com.jmel.programcontrol;
 
+import com.jmel.stackarithmetic.Pop;
 import com.jmel.stackarithmetic.Push;
 
 import java.util.ArrayList;
@@ -62,15 +63,21 @@ public class Functions extends Addressable {
     }
 
     public static String functionAssembly(String functionName, int argNum) {
-        StringBuilder pushArgNum = new StringBuilder();
+        StringBuilder pushZeroesToStack = new StringBuilder();
+        StringBuilder popZeroesToLocal = new StringBuilder();
+        StringBuilder pushLocal = new StringBuilder();
         for (int i = 0; i < argNum; i++) {
-            pushArgNum.append(Push.write("local", String.valueOf(i), ""));
+            pushZeroesToStack.append(Push.write("constant", "0", ""));
+            popZeroesToLocal.append(Pop.write("local", String.valueOf(i), ""));
+            pushLocal.append(Push.write("local", String.valueOf(i), ""));
         }
 
         // (functionName)
         // push 0 argNum times
         return Addressable.createLabel(functionName)
-                + pushArgNum;
+                + pushZeroesToStack
+                + popZeroesToLocal
+                + pushLocal;
     }
 
     public static String returnAssembly() {
