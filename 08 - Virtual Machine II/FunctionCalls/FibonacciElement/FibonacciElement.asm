@@ -2,11 +2,59 @@
 D=A
 @R0
 M=D
+@Sys.init$ret.0
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@LCL
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@ARG
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THIS
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@THAT
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@5
+D=A
+@SP
+D=M-D
+@0
+D=D-A
+@ARG
+M=D
+@SP
+D=M
+@LCL
+M=D
 @Sys.init
 0;JMP
-// function Main.fibonacci 0
+(Sys.init$ret.0)
+//function Main.fibonacci 0
 (Main.fibonacci)
-// push argument 0
+//push argument 0
 @0
 D=A
 @ARG
@@ -22,7 +70,7 @@ A=M
 M=D
 @SP
 M=M+1
-// push constant 2
+//push constant 2
 @2
 D=A
 @SP
@@ -30,7 +78,7 @@ A=M
 M=D
 @SP
 M=M+1
-// lt                     // checks if n<2
+//lt
 @SP
 M=M-1
 @SP
@@ -58,7 +106,7 @@ M=-1
 @SP
 M=M+1
 
-// if-goto IF_TRUE
+//if-goto IF_TRUE
 @SP
 M=M-1
 @SP
@@ -66,12 +114,12 @@ A=M
 D=M
 @IF_TRUE
 D;JNE
-// goto IF_FALSE
+//goto IF_FALSE
 @IF_FALSE
 0;JMP
-// label IF_TRUE          // if n<2, return n
+//label IF_TRUE
 (IF_TRUE)
-// push argument 0        
+//push argument 0
 @0
 D=A
 @ARG
@@ -87,7 +135,7 @@ A=M
 M=D
 @SP
 M=M+1
-// return
+//return
 @LCL
 D=M
 @R13
@@ -163,9 +211,9 @@ M=D
 @R14
 A=M
 0;JMP
-// label IF_FALSE         // if n>=2, returns fib(n-2)+fib(n-1)
+//label IF_FALSE
 (IF_FALSE)
-// push argument 0
+//push argument 0
 @0
 D=A
 @ARG
@@ -181,7 +229,7 @@ A=M
 M=D
 @SP
 M=M+1
-// push constant 2
+//push constant 2
 @2
 D=A
 @SP
@@ -189,7 +237,7 @@ A=M
 M=D
 @SP
 M=M+1
-// sub
+//sub
 @SP
 M=M-1
 @SP
@@ -202,9 +250,9 @@ A=M
 M=M-D
 @SP
 M=M+1
-// call Main.fibonacci 1  // computes fib(n-2)
+//call Main.fibonacci 1
 @Main.fibonacci$ret.1
-D=M
+D=A
 @SP
 A=M
 M=D
@@ -253,7 +301,7 @@ M=D
 @Main.fibonacci
 0;JMP
 (Main.fibonacci$ret.1)
-// push argument 0
+//push argument 0
 @0
 D=A
 @ARG
@@ -269,7 +317,7 @@ A=M
 M=D
 @SP
 M=M+1
-// push constant 1
+//push constant 1
 @1
 D=A
 @SP
@@ -277,7 +325,7 @@ A=M
 M=D
 @SP
 M=M+1
-// sub
+//sub
 @SP
 M=M-1
 @SP
@@ -290,9 +338,9 @@ A=M
 M=M-D
 @SP
 M=M+1
-// call Main.fibonacci 1  // computes fib(n-1)
+//call Main.fibonacci 1
 @Main.fibonacci$ret.2
-D=M
+D=A
 @SP
 A=M
 M=D
@@ -341,7 +389,7 @@ M=D
 @Main.fibonacci
 0;JMP
 (Main.fibonacci$ret.2)
-// add                    // returns fib(n-1) + fib(n-2)
+//add
 @SP
 M=M-1
 @SP
@@ -354,7 +402,7 @@ A=M
 M=M+D
 @SP
 M=M+1
-// return
+//return
 @LCL
 D=M
 @R13
@@ -430,9 +478,9 @@ M=D
 @R14
 A=M
 0;JMP
-// function Sys.init 0
+//function Sys.init 0
 (Sys.init)
-// push constant 4
+//push constant 4
 @4
 D=A
 @SP
@@ -440,9 +488,9 @@ A=M
 M=D
 @SP
 M=M+1
-// call Main.fibonacci 1   // computes the 4'th fibonacci element
+//call Main.fibonacci 1
 @Main.fibonacci$ret.3
-D=M
+D=A
 @SP
 A=M
 M=D
@@ -491,8 +539,8 @@ M=D
 @Main.fibonacci
 0;JMP
 (Main.fibonacci$ret.3)
-// label WHILE
+//label WHILE
 (WHILE)
-// goto WHILE              // loops infinitely
+//goto WHILE
 @WHILE
 0;JMP

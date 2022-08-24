@@ -61,9 +61,8 @@ public class Main {
                 D=A
                 @R0
                 M=D
-                @Sys.init
-                0;JMP
-                """;
+                """
+                + Functions.callAssembly("Sys.init", 0);
     }
 
     private static void processFile(BufferedReader reader, FileWriter writer, String outputFileName) throws IOException, NoSuchFieldException {
@@ -78,7 +77,10 @@ public class Main {
                 String[] lineArr = line.split(" ");
 
                 // for each vm line adds a comment to the asm commands containing the original vm statement
-                writer.write("// " + line + "\n");
+                String commentVM = "//" + cleanUpLine(line) + "\n";
+                writer.write(commentVM);
+
+                // calls the appropriate function depending on the value of lineArr[0]
                 switch (lineArr[0]) {
                     case "function", "return", "call" -> writer.write(Functions.write(lineArr));
                     case "push" -> writer.write(Push.write(lineArr[1], lineArr[2], outputFileName));
@@ -90,6 +92,14 @@ public class Main {
             }
             line = reader.readLine();
         }
+    }
+
+    private static String cleanUpLine(String line) {
+        // removes in-line comments from the original vm file
+        if (line.contains("  ")) {
+            return line.substring(0, line.indexOf("  "));
+        }
+        return line;
     }
 }
 

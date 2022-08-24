@@ -109,9 +109,11 @@ public class Functions extends Addressable {
     }
 
     public static String saveBaseAddressToStack(String segment) {
+        String aInstruction = segment.contains("ret") ? "D=A\n" : "D=M\n";
+
         // push the selected segment address to the stack
         return "@" + segment + "\n"
-                + "D=M\n"
+                + aInstruction
                 + "@SP\n"
                 + "A=M\n"
                 + "M=D\n"
