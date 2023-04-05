@@ -1,0 +1,22 @@
+class Main {
+	function void main() {
+		var char lastPressed;
+		var int x1, y1, x2, y2;
+		let x1 = 0;
+		let y1 = 0;
+		let x2 = 10;
+		let y2 = 10;
+		let lastPressed = '1';
+		while (~(lastPressed = 0)) {
+			if (~(Keyboard.keyPressed() = 0)){
+				do Screen.drawRectangle(x1,y1,x2,y2);
+			}
+			let x1 = x1 + 10;
+			let y1 = y1 + 10;
+			let x2 = x2 + 10;
+			let y2 = y2 + 10;			
+			let lastPressed = Keyboard.keyPressed();
+		}
+		return;
+	}
+}
